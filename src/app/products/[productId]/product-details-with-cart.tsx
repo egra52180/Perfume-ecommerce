@@ -20,7 +20,10 @@ export function ProductDetailsWithCart({
           price={product.price}
           image={product.images[0]}
           selectedOptions={selectedOptions}
-        />
+          className="min-w-0 flex-1 rounded-[4px] bg-[#1a1a1a] py-4 text-[13px] font-bold uppercase text-white hover:bg-[#2b2b2b]"
+        >
+          Add to Cart / ${product.price}
+        </AddToCartButton>
       )}
     />
   );

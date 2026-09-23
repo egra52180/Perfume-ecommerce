@@ -4,6 +4,7 @@ import { ProductBreadcrumbs } from "@/features/products/components/ProductBreadc
 import { ProductFilters } from "@/features/products/components/ProductFilters";
 import { ProductGrid } from "@/features/products/components/ProductGrid";
 import { ProductPagination } from "@/features/products/components/ProductPagination";
+import { ProductSearch } from "@/features/products/components/ProductSearch";
 import { ProductSortControl } from "@/features/products/components/ProductSort";
 import { useProducts } from "@/features/products/hooks/useProducts";
 import type { ProductSearchParams } from "@/features/products/types/product.types";
@@ -27,6 +28,9 @@ export function ProductsPage({ searchParams }: ProductsPageProps) {
         <p className="mt-2 w-full text-[14px] font-normal text-[#605a54] sm:mt-0">
           Cultivated formulations curated to command atmospheric space.
         </p>
+        <div className="mt-5 w-full max-w-md">
+          <ProductSearch value={query.search ?? ""} />
+        </div>
       </div>
       <div className="flex flex-col items-stretch gap-8 px-4 pb-16 sm:px-6 md:px-10 lg:flex-row lg:items-start lg:gap-12 lg:px-20 lg:pb-[100px]">
         <ProductFilters />
