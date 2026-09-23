@@ -1,0 +1,68 @@
+.page {
+  --paper: #faf8f5;
+  --ink: #1a1a1a;
+  --muted: #605a54;
+  --line: #ebe6de;
+  --gold: #c5a880;
+  min-height: 100vh;
+  background: var(--paper);
+  color: var(--ink);
+}
+
+.page [data-section="content"] {
+  width: min(100%, 1440px);
+  margin: 0 auto;
+}
+
+.page [data-section="breadcrumbs"] {
+  min-height: 58px;
+}
+
+.page [data-section="detail-body"] {
+  align-items: start;
+}
+
+.page [data-section="gallery"] {
+  min-width: 0;
+}
+
+.page [data-section="main-image"] {
+  background: #e7d2b6;
+}
+
+.page [data-section="specifications"] {
+  width: 560px;
+  max-width: 100%;
+}
+
+.page [data-section="action-row"] {
+  align-items: stretch;
+}
+
+.page [data-section="recommendations"] {
+  background: #f4f0eb;
+}
+
+.page [data-section="footer"] {
+  background: var(--ink);
+}
+
+@media (max-width: 1023px) {
+  .page [data-section="specifications"] {
+    width: 100%;
+  }
+}
+
+@media (max-width: 639px) {
+  .page [data-section="content"] {
+    padding-inline: 20px;
+  }
+
+  .page [data-section="detail-body"] {
+    gap: 32px;
+  }
+
+  .page [data-section="action-row"] {
+    flex-wrap: wrap;
+  }
+}

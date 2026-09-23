@@ -1,18 +1,41 @@
 import { mockProducts } from "@/features/products/services/products.mock-data";
 import type { ProductsService } from "@/features/products/services/products.service";
 
-/**
- * In-memory catalog used while no backend exists.
- * Search, filter, sort, and pagination are intentionally left for user stories.
- */
 export const mockProductsService: ProductsService = {
   async list(query) {
-    // TODO(US-01, US-02, US-03): apply search, filters, sort, and pagination.
+    const normalizedSearch = query.search?.toLowerCase();
+    let filteredProducts = mockProducts.filter((product) => {
+      const matchesSearch = normalizedSearch
+        ? [product.name, product.description, product.notes, product.scentFamily]
+            .join(" ")
+            .toLowerCase()
+            .includes(normalizedSearch)
+        : true;
+      const matchesCategory = query.category
+        ? product.category === query.category
+        : true;
+
+      return matchesSearch && matchesCategory;
+    });
+
+    if (query.sort) {
+      filteredProducts = [...filteredProducts].sort((left, right) => {
+        if (query.sort === "name-asc") return left.name.localeCompare(right.name);
+        if (query.sort === "name-desc") return right.name.localeCompare(left.name);
+        if (query.sort === "price-asc") return left.price - right.price;
+        return right.price - left.price;
+      });
+    }
+
+    const page = query.page ?? 1;
+    const pageSize = query.pageSize ?? 8;
+    const start = (page - 1) * pageSize;
+
     return {
-      items: mockProducts,
-      total: mockProducts.length,
-      page: query.page ?? 1,
-      pageSize: query.pageSize ?? 8,
+      items: filteredProducts.slice(start, start + pageSize),
+      total: filteredProducts.length,
+      page,
+      pageSize,
     };
   },
 
