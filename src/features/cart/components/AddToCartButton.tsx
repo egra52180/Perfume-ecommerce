@@ -1,26 +1,36 @@
 "use client";
 
-import { Button } from "@/components/ui/Button";
+import type { ReactNode } from "react";
 import { useCart } from "@/features/cart/hooks/useCart";
 import type { AddToCartInput } from "@/features/cart/types/cart.types";
 
-type AddToCartButtonProps = AddToCartInput;
-
-type StyledAddToCartButtonProps = AddToCartButtonProps & {
+type AddToCartButtonProps = AddToCartInput & {
   className?: string;
-  children?: React.ReactNode;
+  label?: string;
+  quantity?: number;
+  children?: ReactNode;
 };
 
 export function AddToCartButton({
   className,
+  label,
+  quantity,
   children,
-  ...props
-}: StyledAddToCartButtonProps) {
+  ...input
+}: AddToCartButtonProps) {
   const { addItem } = useCart();
+  const nextQuantity = Math.max(1, Math.floor(quantity ?? 1));
 
   return (
-    <Button className={className} onClick={() => addItem(props)}>
-      {children ?? "Add to cart"}
-    </Button>
+    <button
+      type="button"
+      className={
+        className ??
+        "inline-flex items-center justify-center rounded-md bg-zinc-900 px-4 py-2 text-sm font-medium text-white"
+      }
+      onClick={() => addItem({ ...input, quantity: nextQuantity })}
+    >
+      {children ?? label ?? "Add to cart"}
+    </button>
   );
 }
