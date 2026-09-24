@@ -19,9 +19,14 @@ describe("parseProductListQuery", () => {
     ).toEqual({
       search: "mug",
       category: "home",
+      categories: ["home"],
+      scentFamilies: undefined,
+      occasions: undefined,
+      minPrice: undefined,
+      maxPrice: undefined,
       sort: "price-asc",
       page: 2,
-      pageSize: 4,
+      pageSize: 6,
     });
   });
 });
