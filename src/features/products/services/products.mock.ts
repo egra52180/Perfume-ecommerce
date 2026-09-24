@@ -3,7 +3,14 @@ import type { ProductsService } from "@/features/products/services/products.serv
 
 export const mockProductsService: ProductsService = {
   async list(query) {
-    const normalizedSearch = query.search?.toLowerCase();
+    const normalizedSearch = query.search?.trim().toLowerCase();
+    const categories =
+      query.categories?.length ? query.categories : query.category ? [query.category] : undefined;
+    const scentFamilies = query.scentFamilies;
+    const occasions = query.occasions;
+    const minPrice = query.minPrice ?? 0;
+    const maxPrice = query.maxPrice ?? Number.POSITIVE_INFINITY;
+
     let filteredProducts = mockProducts.filter((product) => {
       const matchesSearch = normalizedSearch
         ? [product.name, product.description, product.notes, product.scentFamily]
@@ -11,11 +18,21 @@ export const mockProductsService: ProductsService = {
             .toLowerCase()
             .includes(normalizedSearch)
         : true;
-      const matchesCategory = query.category
-        ? product.category === query.category
-        : true;
+      const matchesCategory =
+        !categories?.length || categories.includes(product.category);
+      const matchesScentFamily =
+        !scentFamilies?.length || scentFamilies.includes(product.scentFamily);
+      const matchesOccasion =
+        !occasions?.length || occasions.includes(product.occasion);
+      const matchesPrice = product.price >= minPrice && product.price <= maxPrice;
 
-      return matchesSearch && matchesCategory;
+      return (
+        matchesSearch &&
+        matchesCategory &&
+        matchesScentFamily &&
+        matchesOccasion &&
+        matchesPrice
+      );
     });
 
     if (query.sort) {

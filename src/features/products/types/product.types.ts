@@ -28,6 +28,11 @@ export type ProductSort =
 export type ProductListQuery = {
   search?: string;
   category?: string;
+  categories?: string[];
+  scentFamilies?: string[];
+  occasions?: string[];
+  minPrice?: number;
+  maxPrice?: number;
   sort?: ProductSort;
   page?: number;
   pageSize?: number;
