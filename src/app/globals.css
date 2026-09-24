@@ -3,6 +3,10 @@
 :root {
   --background: #fafafa;
   --foreground: #18181b;
+  --font-geist-sans: Arial, sans-serif;
+  --font-geist-mono: "Courier New", monospace;
+  --font-manrope: Arial, sans-serif;
+  --font-instrument-serif: Georgia, serif;
 }
 
 @theme inline {

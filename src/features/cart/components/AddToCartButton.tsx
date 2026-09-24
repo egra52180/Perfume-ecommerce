@@ -6,10 +6,21 @@ import type { AddToCartInput } from "@/features/cart/types/cart.types";
 
 type AddToCartButtonProps = AddToCartInput;
 
-export function AddToCartButton(props: AddToCartButtonProps) {
+type StyledAddToCartButtonProps = AddToCartButtonProps & {
+  className?: string;
+  children?: React.ReactNode;
+};
+
+export function AddToCartButton({
+  className,
+  children,
+  ...props
+}: StyledAddToCartButtonProps) {
   const { addItem } = useCart();
 
   return (
-    <Button onClick={() => addItem(props)}>Add to cart</Button>
+    <Button className={className} onClick={() => addItem(props)}>
+      {children ?? "Add to cart"}
+    </Button>
   );
 }
